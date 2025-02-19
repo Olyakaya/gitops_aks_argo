@@ -1,0 +1,43 @@
+backups/*
+# Ignore Python dependencies
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore Terraform files
+.terraform/
+*.tfstate
+*.tfstate.backup
+terraform.tfvars
+*.plan
+
+# Ignore Kubernetes and Helm-related files
+*.crt
+*.key
+*.pem
+*.kubeconfig
+charts/
+releases/
+secrets.yaml
+*.lock
+
+# Ignore Docker and build-related files
+.dockerignore
+docker-compose.override.yml
+*.log
+*.out
+*.swp
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Ignore system files
+.DS_Store
+Thumbs.db

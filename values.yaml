@@ -1,0 +1,24 @@
+server:
+  ingress:
+    enabled: true
+    hostname: "argocd.olyakaya.pp.ua"
+    ingressClassName: "nginx"
+    annotations:
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
+      service.beta.kubernetes.io/azure-load-balancer-health-probe-request-path: "/healthz"
+      service.beta.kubernetes.io/azure-load-balancer-resource-group: "MC_OlhaBuchynska_gitops-k8s_westeurope"
+    paths:
+      - "/"
+    pathType: "Prefix"
+    servicePort: "443"
+  service:
+    type: ClusterIP
+  config:
+    params:
+      server.insecure: true
+
+global:
+  image:
+    tag: "latest"

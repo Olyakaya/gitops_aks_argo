@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp
+  namespace: argocd
+  # labels:
+  #   app: myapp
+  #   app.kubernetes.io/managed-by: Helm
+  #   app.kubernetes.io/name: myapp
+  #   app.kubernetes.io/instance: "{{ .Release.Name }}"
+  # annotations:
+  #   meta.helm.sh/release-name: "{{ .Release.Name }}"
+  #   meta.helm.sh/release-namespace: argocd
+  #   argocd.argoproj.io/sync-options: Force=true
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Olyakaya/task_gitops.git
+    targetRevision: HEAD
+    path: base
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: myapp
+  syncPolicy:
+    automated:
+      prune: true # Deletes resources that no longer exist in Git
+      selfHeal: true # Restores changes made outside of Git
+    syncOptions:
+      - CreateNamespace=true # Automatically creates the namespace if missing
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+      - Replace=true
